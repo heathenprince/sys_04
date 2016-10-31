@@ -3,6 +3,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 struct stat buff;
 
@@ -21,7 +22,29 @@ void printSize(int size){
 
 //ls -l representation -- WIP
 void printMode(int mode){
-
+  char ans[10] = "-";
+  mode %= 1000;
+  while( mode > 10 ) { 
+    mode /= pow( 10, expt );
+    if( mode >= 4 ) {
+      strcat( ans, "r" );
+      mode -= 4;
+    }
+    if( mode >= 2 ) {
+      strcat( ans, "w" );
+      mode -=2;
+    }
+    if( mode == 1 ) {
+      strcat( ans, "x" );
+      mode -= 1;
+    }
+    else {
+      strcat( ans, "-" );
+    }
+    mode /= 100;
+  }
+  printf( "%s\n", ans );
+  
 }
 
 
