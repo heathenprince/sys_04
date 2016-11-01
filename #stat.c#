@@ -3,7 +3,6 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <time.h>
-#include <math.h>
 
 struct stat buff;
 
@@ -20,12 +19,24 @@ void printSize(int size){
 }
 
 
+int mypow( int base, int exp ) {
+  while( exp > 0 ) {
+    base *= base;
+    exp--;
+  }
+  return base;
+}
+
 //ls -l representation -- WIP
 void printMode(int mode){
   char ans[10] = "-";
-  mode %= 1000;
-  while( mode > 10 ) { 
-    //mode /= pow( 10, expt );
+  mode %= 512; //isolates last 3 digits
+  int expt = 3;
+
+  while( expt ) {
+    int temp = mode / mypow( 10, expt );
+    //    mode /= mypow( 10, expt ); 
+    
     if( mode >= 4 ) {
       strcat( ans, "r" );
       mode -= 4;
@@ -41,7 +52,9 @@ void printMode(int mode){
     else {
       strcat( ans, "-" );
     }
-    mode /= 100;
+
+    //mode %= mypow( 10, expt );
+    expt--;
   }
   printf( "%s\n", ans );
   
@@ -57,6 +70,7 @@ int main() {
 
   //mode =====
   printf("File Mode: %o\n" , buff.st_mode);
+  printMode(buff.st_mode);
 
   //time of last access =====
   printf("Time of last access: %s\n", ctime(&buff.st_atime));
