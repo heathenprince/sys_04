@@ -1,8 +1,13 @@
+GCC = gcc
+
 stattest: stat.c
-	gcc stat.c -o stattest
+	$(GCC) stat.c -o stattest
 
 run: stattest
 	./stattest
 
 clean:
 	rm stattest
+	rm *.out
+	rm *.o
+	rm *~

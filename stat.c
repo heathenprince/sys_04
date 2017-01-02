@@ -32,20 +32,30 @@ void printMode(int mode){
   char ans[10] = "-";
   mode %= 512; //isolates last 3 digits
   int expt = 3;
+  int temp;
+  while( expt > 1 ) {
+    temp = mode / mypow( 8, expt );
+    printf( "%o\n\n" , temp );
+    mode /= mypow( 10, expt ); 
 
-  while( expt ) {
-    int temp = mode / mypow( 10, expt );
-    //    mode /= mypow( 10, expt ); 
-    
     if( mode >= 4 ) {
       strcat( ans, "r" );
       mode -= 4;
     }
+    else {
+      strcat( ans, "-" );
+    }
+    
     if( mode >= 2 ) {
       strcat( ans, "w" );
       mode -=2;
     }
-    if( mode == 1 ) {
+
+    else {
+      strcat( ans, "-" );
+    }
+    
+    if( mode >= 1 ) {
       strcat( ans, "x" );
       mode -= 1;
     }
@@ -53,7 +63,7 @@ void printMode(int mode){
       strcat( ans, "-" );
     }
     
-    //mode %= mypow( 10, expt );
+    mode %= mypow( 8, expt );
     expt--;
   }
   printf( "%s\n", ans );
