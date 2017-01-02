@@ -18,7 +18,7 @@ void printSize(int size){
   printf("%d %s \n", size, s[i]);
 }
 
-
+  
 int mypow( int base, int exp ) {
   int ans = 1;
   while( exp ) {
@@ -27,9 +27,9 @@ int mypow( int base, int exp ) {
   }
   return ans;
 }
-
+  
 //ls -l representation -- WIP
-void printMode(int mode){
+void printLongMode(int mode){
   char ans[10] = "-";
   
   mode %= 512; //isolates last 3 digits
@@ -78,15 +78,14 @@ int main() {
   stat("test.txt", &buff); //put all the stat info inside buff struct
 
   //size =====
-  //printf("Size of file: %d\n" , buff.st_size);
-  //printSize(buff.st_size);
+  printSize(buff.st_size);
 
   //mode =====
   printf("File Mode: %o\n" , buff.st_mode);
-  printMode(buff.st_mode);
+  //printMode(buff.st_mode);
 
   //time of last access =====
-  //  printf("Time of last access: %s\n", ctime(&buff.st_atime));
+  printf("Time of last access: %s\n", ctime(&buff.st_atime));
 
   return 0;
 }
