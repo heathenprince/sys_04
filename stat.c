@@ -8,20 +8,21 @@ struct stat buff;
 
 //size in B, KB, MB, and GB
 void printSize(int size){
-	printf("Size of file: ");
-	char* s[] = {"B", "KB", "MB", "GB"};
-    int i = 0;
-    while (size > 1024 && i < sizeof(s)){
-        i++;
-        size /= 1024.0;
-    }
-    printf("%d %s \n", size, s[i]);
+  printf("Size of file: ");
+  char* s[] = {"B", "KB", "MB", "GB"};
+  int i = 0;
+  while (size > 1024 && i < sizeof(s)){
+    i++;
+    size /= 1024.0;
+  }
+  printf("%d %s \n", size, s[i]);
 }
 
 
 int mypow( int base, int exp ) {
-  while( exp > 0 ) {
-    base *= base;
+  int ans = base;
+  while( exp ) {
+    ans *= base;
     exp--;
   }
   return base;
@@ -32,10 +33,11 @@ void printMode(int mode){
   char ans[10] = "-";
   mode %= 512; //isolates last 3 digits
   int expt = 3;
-  int temp;
+  int temp; //que es?
+  
   while( expt > 1 ) {
-    temp = mode / mypow( 8, expt );
-    printf( "%o\n\n" , temp );
+    temp = mode / mypow( 10, expt ); //you want the end result to be a single digit number i.e. 6
+    printf( "%o\n\n" , mode );
     mode /= mypow( 10, expt ); 
 
     if( mode >= 4 ) {
@@ -63,7 +65,7 @@ void printMode(int mode){
       strcat( ans, "-" );
     }
     
-    mode %= mypow( 8, expt );
+    mode %= mypow( 10, expt );
     expt--;
   }
   printf( "%s\n", ans );
@@ -72,7 +74,7 @@ void printMode(int mode){
 
 
 int main() {
-  stat("test.txt", &buff);
+  stat("test.txt", &buff); //put all the stat info inside buff struct
 
   //size =====
   //printf("Size of file: %d\n" , buff.st_size);
@@ -83,7 +85,7 @@ int main() {
   printMode(buff.st_mode);
 
   //time of last access =====
-  printf("Time of last access: %s\n", ctime(&buff.st_atime));
+  //  printf("Time of last access: %s\n", ctime(&buff.st_atime));
 
   return 0;
 }
