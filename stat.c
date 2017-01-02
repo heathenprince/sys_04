@@ -36,7 +36,7 @@ void printMode(int mode){
   int expt = 2;
   int temp; //que es?
   
-  while( expt > -1) {
+  while( expt > 0) {
     temp = mode / mypow( 8, expt ); //you want the end result to be a single digit number i.e. 6
     mode %= mypow( 8, expt );
     if( temp >= 4 ) {
