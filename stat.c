@@ -37,7 +37,7 @@ void printMode(int mode){
   
   while( expt > 1 ) {
     temp = mode / mypow( 10, expt ); //you want the end result to be a single digit number i.e. 6
-    printf( "%o\n\n" , mode );
+    printf( "%o\n\n" , temp );
     mode /= mypow( 10, expt ); 
 
     if( mode >= 4 ) {
