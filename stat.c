@@ -34,9 +34,9 @@ void printMode(int mode){
   
   mode %= 512; //isolates last 3 digits
   int expt = 2;
-  int temp; //que es?
+  int temp; 
   
-  while( expt > 0) {
+  while( expt ) {
     temp = mode / mypow( 8, expt ); //you want the end result to be a single digit number i.e. 6
     mode %= mypow( 8, expt );
     if( temp >= 4 ) {
