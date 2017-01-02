@@ -20,57 +20,58 @@ void printSize(int size){
 
 
 int mypow( int base, int exp ) {
-  int ans = base;
+  int ans = 1;
   while( exp ) {
     ans *= base;
     exp--;
   }
-  return base;
+  return ans;
 }
 
 //ls -l representation -- WIP
 void printMode(int mode){
   char ans[10] = "-";
+  
   mode %= 512; //isolates last 3 digits
-  int expt = 3;
+  int expt = 2;
   int temp; //que es?
   
-  while( expt > 1 ) {
-    temp = mode / mypow( 10, expt ); //you want the end result to be a single digit number i.e. 6
-    printf( "%o\n\n" , temp );
-    mode /= mypow( 10, expt ); 
-
-    if( mode >= 4 ) {
+  while( expt > -1) {
+    temp = mode / mypow( 8, expt ); //you want the end result to be a single digit number i.e. 6
+    mode %= mypow( 8, expt );
+    if( temp >= 4 ) {
       strcat( ans, "r" );
-      mode -= 4;
+      temp -= 4;
     }
     else {
       strcat( ans, "-" );
     }
     
-    if( mode >= 2 ) {
+    if( temp >= 2 ) {
       strcat( ans, "w" );
-      mode -=2;
+      temp -=2;
     }
 
     else {
       strcat( ans, "-" );
     }
     
-    if( mode >= 1 ) {
+    if( temp >= 1 ) {
       strcat( ans, "x" );
-      mode -= 1;
+      temp -= 1;
     }
     else {
       strcat( ans, "-" );
     }
     
-    mode %= mypow( 10, expt );
+    mode %= mypow( 8, expt );
     expt--;
   }
-  printf( "%s\n", ans );
+  printf( "%s\n", ans ); 
+
   
 }
+
 
 
 int main() {
@@ -78,7 +79,7 @@ int main() {
 
   //size =====
   //printf("Size of file: %d\n" , buff.st_size);
-  printSize(buff.st_size);
+  //printSize(buff.st_size);
 
   //mode =====
   printf("File Mode: %o\n" , buff.st_mode);
